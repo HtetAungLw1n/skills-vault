@@ -21,3 +21,9 @@ export const createSkill = async (
     },
   });
 };
+
+export const getSkill = async (skillId: string, userId: string) => {
+  return prisma.skill.findFirst({
+    where: { id: skillId, userId },
+  });
+};
