@@ -27,3 +27,25 @@ export const getSkill = async (skillId: string, userId: string) => {
     where: { id: skillId, userId },
   });
 };
+
+export const editSkill = async (
+  payload: z.infer<typeof skillSchema>,
+  userId: string,
+  skillId: string,
+) => {
+  return prisma.skill.update({
+    data: {
+      ...payload,
+    },
+    where: { id: skillId, userId },
+  });
+};
+
+export const deleteSkill = async (skillId: string, userId: string) => {
+  return prisma.skill.delete({
+    where: {
+      id: skillId,
+      userId,
+    },
+  });
+};

@@ -16,13 +16,25 @@ import { useForm } from "react-hook-form";
 import { skillSchema } from "../skills.schema";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createSkillAction } from "../actions";
+import { createSkillAction, editSkillAction } from "../actions";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Skill } from "@/generated/prisma/client";
 
-const SkillForm = () => {
+type SkillFormProps = {
+  intent?: "create" | "edit";
+  skill?: Skill;
+};
+
+const SkillForm = ({ intent = "create", skill }: SkillFormProps) => {
+  const isEditing = intent === "edit";
   const router = useRouter();
   const [submitError, setSubmitError] = useState<string | null>(null);
+
+  if (isEditing && !skill) {
+    return null;
+  }
+
   const {
     register,
     handleSubmit,
@@ -30,9 +42,9 @@ const SkillForm = () => {
   } = useForm<z.infer<typeof skillSchema>>({
     resolver: zodResolver(skillSchema),
     defaultValues: {
-      title: "",
-      description: "",
-      content: "",
+      title: skill?.title || "",
+      description: skill?.description || "",
+      content: skill?.content || "",
     },
   });
 
@@ -53,20 +65,43 @@ const SkillForm = () => {
     }
   };
 
+  const onEdit = async (values: z.infer<typeof skillSchema>) => {
+    setSubmitError(null);
+
+    if (!skill?.id) {
+      setSubmitError("Skill not found.");
+      return;
+    }
+
+    try {
+      const result = await editSkillAction(values, skill.id);
+
+      if (!result.success) {
+        setSubmitError(result.error);
+        return;
+      }
+
+      router.push(`/skills/${skill.id}`);
+    } catch {
+      setSubmitError("Could not edit the skill. Please try again.");
+    }
+  };
+
   return (
     <>
       <header className="space-y-3">
         <div className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/5 px-3 py-1 text-[11px] font-semibold tracking-[0.14em] text-primary">
           <SparkleIcon className="size-3.5" weight="fill" />
-          ADD TO YOUR LIBRARY
+          {isEditing ? "EDIT YOUR LIBRARY" : "ADD TO YOUR LIBRARY"}
         </div>
         <div className="space-y-2">
           <h1 className="font-heading text-3xl font-medium tracking-tight sm:text-4xl">
-            Create a skill
+            {isEditing ? "Edit skill" : "Create a skill"}
           </h1>
           <p className="max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
-            Capture a reusable set of instructions you can reach for whenever
-            you need it.
+            {isEditing
+              ? "Update the name, description, and instructions for this skill."
+              : "Capture a reusable set of instructions you can reach for whenever you need it."}
           </p>
         </div>
       </header>
@@ -75,11 +110,18 @@ const SkillForm = () => {
           <CardHeader className="border-b border-border/70 pb-5">
             <CardTitle className="text-lg">Skill details</CardTitle>
             <CardDescription>
-              Give your skill a clear name and instructions.
+              {isEditing
+                ? "Make changes to your skill details and instructions."
+                : "Give your skill a clear name and instructions."}
             </CardDescription>
           </CardHeader>
           <CardContent className="gap-6 pt-6">
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <form
+              onSubmit={
+                isEditing ? handleSubmit(onEdit) : handleSubmit(onSubmit)
+              }
+              className="space-y-6"
+            >
               <div className="space-y-2">
                 <Label htmlFor="title">Name</Label>
                 <Input
@@ -140,7 +182,9 @@ const SkillForm = () => {
                   required
                   rows={14}
                   aria-invalid={!!errors.content}
-                  aria-describedby={errors.content ? "content-error" : undefined}
+                  aria-describedby={
+                    errors.content ? "content-error" : undefined
+                  }
                   {...register("content")}
                 />
                 {errors.content && (
@@ -158,13 +202,21 @@ const SkillForm = () => {
                 <Button
                   variant="outline"
                   nativeButton={false}
-                  render={<Link href="/skills" />}
+                  render={
+                    <Link
+                      href={
+                        isEditing && skill?.id
+                          ? `/skills/${skill.id}`
+                          : "/skills"
+                      }
+                    />
+                  }
                 >
                   <ArrowLeftIcon data-icon="inline-start" />
-                  Cancel
+                  {isEditing ? "Back to skill" : "Cancel"}
                 </Button>
                 <Button type="submit" size="lg" disabled={isSubmitting}>
-                  Create skill
+                  {isEditing ? "Save changes" : "Create skill"}
                 </Button>
               </div>
               {submitError && (
