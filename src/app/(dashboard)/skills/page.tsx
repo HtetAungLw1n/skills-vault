@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { connection } from "next/server";
-import { PlusIcon, SparkleIcon } from "@phosphor-icons/react/ssr";
+import { PlusIcon } from "@phosphor-icons/react/ssr";
 import { buttonVariants } from "@/components/ui/button";
 import { SkillsList } from "@/features/skills/components/skills-list";
 import { getSkills } from "@/features/skills/api/skills.service";
@@ -22,52 +22,46 @@ export default async function SkillsPage() {
   const skills = await getSkills(user.id);
 
   return (
-    <div className="space-y-9">
-      <section className="relative isolate overflow-hidden rounded-xl border border-border/70 bg-card px-6 py-8 shadow-sm sm:px-9 sm:py-10">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-16 -top-32 -z-10 size-80 rounded-full bg-primary/10 blur-3xl"
-        />
-        <div className="relative flex flex-col gap-7 sm:flex-row sm:items-end sm:justify-between">
-          <div className="max-w-2xl space-y-4">
-            <div className="space-y-2.5">
-              <h1 className="font-heading text-3xl font-medium tracking-tight sm:text-4xl">
-                A home for your{" "}
-                <span className="text-primary">best ideas.</span>
-              </h1>
-              <p className="max-w-xl text-sm leading-6 text-muted-foreground sm:text-base">
-                Keep your most useful AI instructions close at hand. Create,
-                refine, and find the skills you reach for every day.
-              </p>
-            </div>
-          </div>
-          <Link
-            href="/skills/new"
-            className={`${buttonVariants({ size: "lg" })} shrink-0 rounded-xl shadow-sm`}
-          >
-            <PlusIcon data-icon="inline-start" weight="bold" />
-            New skill
-          </Link>
+    <div className="space-y-10">
+      <section className="flex flex-col gap-6 border-b border-border pb-8 sm:flex-row sm:items-end sm:justify-between">
+        <div className="max-w-2xl">
+          <p className="text-xs font-medium tracking-[0.12em] text-muted-foreground">
+            YOUR WORKSPACE
+          </p>
+          <h1 className="mt-3 font-heading text-3xl leading-tight font-medium tracking-[-0.04em] sm:text-4xl">
+            Your library
+          </h1>
+          <p className="mt-3 max-w-xl text-sm leading-6 text-muted-foreground sm:text-base">
+            Keep the instructions that work close at hand. Create, refine, and
+            find a skill whenever you need it.
+          </p>
         </div>
+        <Link
+          href="/skills/new"
+          className={`${buttonVariants({ size: "lg" })} shrink-0`}
+        >
+          <PlusIcon data-icon="inline-start" weight="bold" />
+          New skill
+        </Link>
       </section>
 
       <section aria-labelledby="skills-library-heading" className="space-y-5">
-        <div className="flex items-end justify-between gap-4 border-b border-border/70 pb-4">
+        <div className="flex items-end justify-between gap-4">
           <div className="space-y-1">
             <h2
               id="skills-library-heading"
-              className="font-heading text-xl font-medium tracking-tight"
+              className="font-heading text-lg font-medium"
             >
-              Your library
+              All skills
             </h2>
             <p className="text-sm text-muted-foreground">
               {skills.length === 0
-                ? "Your reusable prompts will live here."
-                : `${skills.length} skill${skills.length === 1 ? "" : "s"} ready when you are.`}
+                ? "Your reusable instructions will live here."
+                : `${skills.length} skill${skills.length === 1 ? "" : "s"} in your library.`}
             </p>
           </div>
-          <span className="rounded-full border border-border/70 bg-muted/50 px-3 py-1 text-xs font-medium text-muted-foreground">
-            {skills.length} {skills.length === 1 ? "skill" : "skills"}
+          <span className="font-mono text-xs text-muted-foreground">
+            {String(skills.length).padStart(2, "0")}
           </span>
         </div>
 

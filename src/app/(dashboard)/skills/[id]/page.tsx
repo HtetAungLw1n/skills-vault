@@ -66,49 +66,42 @@ async function SkillDetailContent({ id }: { id: string }) {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <header className="relative isolate overflow-hidden rounded-xl border border-border/70 bg-card px-6 py-7 shadow-sm sm:px-9 sm:py-9">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-20 -top-32 -z-10 size-80 rounded-full bg-primary/10 blur-3xl"
-        />
-
-        <div className="relative flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
-          <div className="space-y-5">
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/5 px-3 py-1 text-[11px] font-semibold tracking-[0.14em] text-primary">
-              <SparkleIcon className="size-3.5" weight="fill" />
-              SKILL DETAILS
-            </div>
-
-            <div className="space-y-2.5">
-              <h1 className="font-heading text-3xl font-medium tracking-tight sm:text-4xl">
-                {skill.title}
-              </h1>
-
-              <p className="max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
-                {skill.description}
-              </p>
-            </div>
+      <header className="flex flex-col gap-6 border-b border-border pb-8 sm:flex-row sm:items-start sm:justify-between">
+        <div className="space-y-5">
+          <div className="inline-flex items-center gap-2 text-xs font-medium tracking-[0.12em] text-muted-foreground">
+            <SparkleIcon className="size-3.5 text-[#24b47e]" weight="fill" />
+            YOUR SKILL
           </div>
 
-          <div className="flex shrink-0 flex-col-reverse gap-2 sm:flex-row">
-            <SkillDeleteBtn id={id} />
+          <div className="space-y-2.5">
+            <h1 className="font-heading text-3xl font-medium tracking-[-0.04em] sm:text-4xl">
+              {skill.title}
+            </h1>
 
-            <Link
-              href={`/skills/${id}/edit`}
-              className={buttonVariants({ size: "lg" })}
-            >
-              <PencilSimpleIcon data-icon="inline-start" />
-              Edit skill
-            </Link>
+            <p className="max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
+              {skill.description}
+            </p>
           </div>
+        </div>
+
+        <div className="flex shrink-0 flex-col-reverse gap-2 sm:flex-row">
+          <SkillDeleteBtn id={id} />
+
+          <Link
+            href={`/skills/${id}/edit`}
+            className={buttonVariants({ size: "lg" })}
+          >
+            <PencilSimpleIcon data-icon="inline-start" />
+            Edit skill
+          </Link>
         </div>
       </header>
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_17rem] lg:items-start">
-        <Card className="gap-0">
-          <CardHeader className="border-b border-border/70 pb-5">
+        <Card className="gap-0 rounded-xl shadow-none">
+          <CardHeader className="border-b border-border pb-5">
             <div className="flex items-center gap-3">
-              <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border bg-muted/60 text-primary">
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-md border border-border bg-[#fafafa] text-[#24b47e]">
                 <LightningIcon className="size-4" weight="duotone" />
               </span>
 
@@ -123,7 +116,7 @@ async function SkillDetailContent({ id }: { id: string }) {
           </CardHeader>
 
           <CardContent className="pt-6">
-            <pre className="overflow-x-auto whitespace-pre-wrap break-words font-mono text-sm leading-7 text-foreground/90">
+            <pre className="overflow-x-auto whitespace-pre-wrap break-words rounded-md bg-[#1c1c1c] p-5 font-mono text-sm leading-7 text-white">
               {skill.content}
             </pre>
           </CardContent>
@@ -166,8 +159,8 @@ async function SkillDetailContent({ id }: { id: string }) {
             </CardContent>
           </Card>
 
-          <div className="rounded-xl border border-border/70 bg-muted/30 p-5">
-            <h2 className="text-sm font-semibold">Make it yours</h2>
+          <div className="rounded-lg border border-border bg-[#fafafa] p-5">
+            <h2 className="text-sm font-medium">Make it yours</h2>
 
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
               Adjust the instructions to fit your workflow, then come back

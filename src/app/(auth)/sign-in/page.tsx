@@ -55,9 +55,12 @@ export default function SignInPage() {
   }
 
   return (
-    <Card className="w-full max-w-sm">
+    <Card className="w-full rounded-xl border border-border bg-white py-6 text-[#171717] shadow-none ring-0 sm:py-7">
       <CardHeader>
-        <CardTitle>Sign in</CardTitle>
+        <p className="text-xs font-medium tracking-[0.12em] text-muted-foreground">
+          YOUR WORKSPACE
+        </p>
+        <CardTitle className="mt-2 text-2xl tracking-tight">Sign in</CardTitle>
         <CardDescription>
           Welcome back. Enter your email and password.
         </CardDescription>
@@ -73,18 +76,18 @@ export default function SignInPage() {
               {...register("email")}
             />
             {errors.email && (
-              <p className="text-sm text-red-600">{errors.email.message}</p>
+              <p className="text-sm text-destructive">{errors.email.message}</p>
             )}
           </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor="password">Password</Label>
             <Input id="password" type="password" {...register("password")} />
             {errors.password && (
-              <p className="text-sm text-red-600">{errors.password.message}</p>
+              <p className="text-sm text-destructive">{errors.password.message}</p>
             )}
           </div>
           {serverError && (
-            <p role="alert" className="text-sm text-red-600">
+            <p role="alert" className="text-sm text-destructive">
               {serverError}
             </p>
           )}
@@ -98,7 +101,7 @@ export default function SignInPage() {
           Don&apos;t have an account?{" "}
           <Link
             href="/sign-up"
-            className="text-foreground underline-offset-4 hover:underline"
+            className="font-medium text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground"
           >
             Sign up
           </Link>

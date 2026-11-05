@@ -19,10 +19,10 @@ import { signupSchema } from "@/features/auth/auth.schema";
 import z from "zod";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { redirect } from "next/navigation";
 
 export default function SignUpPage() {
   const [serverError, setServerError] = useState("");
+  const [emailSent, setEmailSent] = useState(false);
   const {
     register,
     handleSubmit,
@@ -52,18 +52,34 @@ export default function SignUpPage() {
       setServerError(error.message);
       return;
     }
+
+    setEmailSent(true);
   };
 
   return (
-    <Card className="w-full max-w-sm">
+    <Card className="w-full rounded-xl border border-border bg-white py-6 text-[#171717] shadow-none ring-0 sm:py-7">
       <CardHeader>
-        <CardTitle>Create an account</CardTitle>
+        <p className="text-xs font-medium tracking-[0.12em] text-muted-foreground">
+          GET STARTED
+        </p>
+        <CardTitle className="mt-2 text-2xl tracking-tight">
+          Create an account
+        </CardTitle>
         <CardDescription>
           Enter your details to get started with Skills Vault.
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+        {emailSent ? (
+          <div
+            role="status"
+            className="rounded-md border border-[#dfdfdf] bg-[#fafafa] p-4 text-sm leading-6 text-[#212121]"
+          >
+            Check your inbox for a confirmation link to finish creating your
+            account.
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <Label htmlFor="name">Name</Label>
             <Input
@@ -73,7 +89,7 @@ export default function SignUpPage() {
               {...register("name")}
             />
             {errors.name && (
-              <p className="text-sm text-red-600">{errors.name.message}</p>
+              <p className="text-sm text-destructive">{errors.name.message}</p>
             )}
           </div>
           <div className="flex flex-col gap-2">
@@ -85,32 +101,33 @@ export default function SignUpPage() {
               {...register("email")}
             />
             {errors.email && (
-              <p className="text-sm text-red-600">{errors.email.message}</p>
+              <p className="text-sm text-destructive">{errors.email.message}</p>
             )}
           </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor="password">Password</Label>
             <Input id="password" type="password" {...register("password")} />
             {errors.password && (
-              <p className="text-sm text-red-600">{errors.password.message}</p>
+              <p className="text-sm text-destructive">{errors.password.message}</p>
             )}
           </div>
           {serverError && (
-            <p role="alert" className="text-sm text-red-600">
+            <p role="alert" className="text-sm text-destructive">
               {serverError}
             </p>
           )}
           <Button type="submit" className="w-full" disabled={isSubmitting}>
             {isSubmitting ? "Creating account..." : "Sign up"}
           </Button>
-        </form>
+          </form>
+        )}
       </CardContent>
       <CardFooter>
         <p className="text-sm text-muted-foreground">
           Already have an account?{" "}
           <Link
             href="/sign-in"
-            className="text-foreground underline-offset-4 hover:underline"
+            className="font-medium text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground"
           >
             Sign in
           </Link>

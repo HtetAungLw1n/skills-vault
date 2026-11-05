@@ -15,7 +15,7 @@ import {
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-import { ChevronDown, LogOut } from "lucide-react";
+import { CaretDownIcon, SignOutIcon } from "@phosphor-icons/react";
 
 type UserMenuProps = {
   name?: string;
@@ -49,13 +49,13 @@ export function UserMenu({ name, email, avatarUrl }: UserMenuProps) {
         render={
           <button
             aria-label="Open account menu"
-            className="group flex items-center gap-2 rounded-full p-1.5 pr-2 text-left transition-colors hover:bg-muted/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="group flex items-center gap-2 rounded-md p-1.5 pr-2 text-left transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           />
         }
       >
         <Avatar size="sm" className="ring-2 ring-background">
           <AvatarImage src={avatarUrl} alt={name ?? "User"} />
-          <AvatarFallback className="bg-primary/10 font-medium text-primary">
+          <AvatarFallback className="bg-[#ebfff5] font-medium text-[#24b47e]">
             {initials}
           </AvatarFallback>
         </Avatar>
@@ -67,19 +67,19 @@ export function UserMenu({ name, email, avatarUrl }: UserMenuProps) {
             {email ?? "Account settings"}
           </span>
         </span>
-        <ChevronDown className="hidden size-3.5 text-muted-foreground transition-transform group-aria-expanded:rotate-180 sm:block" />
+        <CaretDownIcon className="hidden size-3.5 text-muted-foreground transition-transform group-aria-expanded:rotate-180 sm:block" />
       </DropdownMenuTrigger>
 
       <DropdownMenuContent
         align="end"
-        className="w-64 rounded-xl border border-border/70 p-1.5 shadow-xl"
+        className="w-64 rounded-lg border border-border p-1.5 shadow-lg"
       >
         <DropdownMenuGroup>
           <DropdownMenuLabel className="px-3 py-2.5">
             <div className="flex min-w-0 items-center gap-3">
               <Avatar size="sm">
                 <AvatarImage src={avatarUrl} alt={name ?? "User"} />
-                <AvatarFallback className="bg-primary/10 font-medium text-primary">
+                <AvatarFallback className="bg-[#ebfff5] font-medium text-[#24b47e]">
                   {initials}
                 </AvatarFallback>
               </Avatar>
@@ -97,9 +97,9 @@ export function UserMenu({ name, email, avatarUrl }: UserMenuProps) {
 
         <DropdownMenuItem
           onClick={handleLogout}
-          className="min-h-10 cursor-pointer rounded-lg px-3 text-destructive focus:text-destructive"
+          className="min-h-10 cursor-pointer rounded-md px-3 text-destructive focus:text-destructive"
         >
-          <LogOut className="size-4" />
+          <SignOutIcon className="size-4" />
           Sign out
         </DropdownMenuItem>
       </DropdownMenuContent>

@@ -30,14 +30,14 @@ async function AuthenticatedDashboard({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex min-h-full flex-col bg-background">
-      <header className="sticky top-0 z-30 border-b border-border/70 bg-background/85 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <header className="sticky top-0 z-30 border-b border-border bg-background">
+        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           <div className="flex min-w-0 items-center gap-5 sm:gap-8">
             <Link
               href="/skills"
               className="group flex shrink-0 items-center gap-2.5"
             >
-              <span className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm transition-transform group-hover:scale-105">
+              <span className="flex size-8 items-center justify-center rounded-md bg-primary text-primary-foreground transition-colors group-hover:bg-[#24b47e]">
                 <LightningIcon className="size-4" weight="fill" />
               </span>
               <span className="text-sm font-semibold tracking-tight">
@@ -49,9 +49,9 @@ async function AuthenticatedDashboard({ children }: { children: ReactNode }) {
               <Link
                 href="/skills"
                 aria-current="page"
-                className="inline-flex h-9 items-center gap-2 rounded-lg bg-muted px-3 text-sm font-medium text-foreground transition-colors hover:bg-muted/80"
+                className="inline-flex h-9 items-center gap-2 border-b-2 border-foreground px-2 text-sm font-medium text-foreground transition-colors"
               >
-                <SquaresFourIcon className="size-4 text-primary" />
+                <SquaresFourIcon className="size-4 text-muted-foreground" />
                 Skills
               </Link>
             </nav>
@@ -64,7 +64,7 @@ async function AuthenticatedDashboard({ children }: { children: ReactNode }) {
           </div>
         </div>
       </header>
-      <main className="mx-auto w-full max-w-7xl flex-1 px-4 pb-14 pt-8 sm:px-6 sm:pb-16 sm:pt-12 lg:px-8">
+      <main className="mx-auto w-full max-w-7xl flex-1 px-4 pb-14 pt-9 sm:px-6 sm:pb-16 sm:pt-12 lg:px-8">
         {children}
       </main>
     </div>
@@ -74,10 +74,10 @@ async function AuthenticatedDashboard({ children }: { children: ReactNode }) {
 function DashboardFallback() {
   return (
     <div className="flex min-h-full flex-col bg-background">
-      <header className="border-b border-border/70">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <header className="border-b border-border">
+        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2.5">
-            <span className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+            <span className="flex size-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
               <LightningIcon className="size-4" weight="fill" />
             </span>
             <span className="text-sm font-semibold tracking-tight">
@@ -87,7 +87,7 @@ function DashboardFallback() {
           <div className="size-9 animate-pulse rounded-full bg-muted" />
         </div>
       </header>
-      <main className="mx-auto w-full max-w-7xl flex-1 px-4 pb-14 pt-8 sm:px-6 sm:pb-16 sm:pt-12 lg:px-8">
+      <main className="mx-auto w-full max-w-7xl flex-1 px-4 pb-14 pt-9 sm:px-6 sm:pb-16 sm:pt-12 lg:px-8">
         <div className="h-64 animate-pulse rounded-xl bg-muted/60" />
         <div className="mt-9 h-40 animate-pulse rounded-2xl bg-muted/40" />
       </main>

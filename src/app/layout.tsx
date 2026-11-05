@@ -1,24 +1,9 @@
 import type { Metadata } from "next";
-import {
-  Geist,
-  Geist_Mono,
-  IBM_Plex_Sans,
-  Source_Sans_3,
-} from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "next-themes";
-
-const sourceSans3Heading = Source_Sans_3({
-  subsets: ["latin"],
-  variable: "--font-heading",
-});
-
-const ibmPlexSans = IBM_Plex_Sans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,8 +16,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Skills Vault",
-  description: "Place to store your ai skills",
+  title: {
+    default: "Skills Vault — Your best instructions, within reach",
+    template: "%s — Skills Vault",
+  },
+  description:
+    "Create, organize, and find the AI instructions you reach for every day.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -46,8 +35,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         geistSans.variable,
         geistMono.variable,
         "font-sans",
-        ibmPlexSans.variable,
-        sourceSans3Heading.variable,
       )}
     >
       <body className="min-h-full flex flex-col">

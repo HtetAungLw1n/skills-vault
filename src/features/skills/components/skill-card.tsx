@@ -29,11 +29,11 @@ export function SkillCard({ skill }: { skill: SkillCardData }) {
     <Link href={`/skills/${skill.id}`} className="group block h-full outline-none">
       <Card
         size="sm"
-        className="h-full transition-shadow group-hover:shadow-md group-hover:ring-foreground/15 group-focus-visible:ring-ring/50 group-focus-visible:ring-3"
+        className="h-full rounded-lg transition-colors group-hover:border-[#c7c7c7] group-focus-visible:ring-ring/50 group-focus-visible:ring-2"
       >
         <CardHeader>
           <div className="flex items-start gap-3">
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border bg-muted/60 text-primary">
+            <span className="flex size-8 shrink-0 items-center justify-center rounded-md border border-border bg-[#fafafa] text-[#24b47e]">
               <LightningIcon className="size-4" weight="duotone" />
             </span>
             <div className="min-w-0">
@@ -45,7 +45,7 @@ export function SkillCard({ skill }: { skill: SkillCardData }) {
           </div>
         </CardHeader>
         <CardFooter className="mt-auto">
-          <p className="text-xs text-muted-foreground">
+          <p className="border-t border-[#ededed] pt-3 text-xs text-muted-foreground">
             Updated {formatUpdatedAt(skill.updatedAt)}
           </p>
         </CardFooter>

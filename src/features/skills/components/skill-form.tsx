@@ -31,10 +31,6 @@ const SkillForm = ({ intent = "create", skill }: SkillFormProps) => {
   const router = useRouter();
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  if (isEditing && !skill) {
-    return null;
-  }
-
   const {
     register,
     handleSubmit,
@@ -47,6 +43,10 @@ const SkillForm = ({ intent = "create", skill }: SkillFormProps) => {
       content: skill?.content || "",
     },
   });
+
+  if (isEditing && !skill) {
+    return null;
+  }
 
   const onSubmit = async (values: z.infer<typeof skillSchema>) => {
     setSubmitError(null);
@@ -88,14 +88,14 @@ const SkillForm = ({ intent = "create", skill }: SkillFormProps) => {
   };
 
   return (
-    <>
-      <header className="space-y-3">
-        <div className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/5 px-3 py-1 text-[11px] font-semibold tracking-[0.14em] text-primary">
-          <SparkleIcon className="size-3.5" weight="fill" />
-          {isEditing ? "EDIT YOUR LIBRARY" : "ADD TO YOUR LIBRARY"}
+    <div className="space-y-7">
+      <header className="space-y-3 border-b border-border pb-7">
+        <div className="inline-flex items-center gap-2 text-xs font-medium tracking-[0.12em] text-muted-foreground">
+          <SparkleIcon className="size-3.5 text-[#24b47e]" weight="fill" />
+          {isEditing ? "EDIT SKILL" : "NEW SKILL"}
         </div>
         <div className="space-y-2">
-          <h1 className="font-heading text-3xl font-medium tracking-tight sm:text-4xl">
+          <h1 className="font-heading text-3xl leading-tight font-medium tracking-[-0.04em] sm:text-4xl">
             {isEditing ? "Edit skill" : "Create a skill"}
           </h1>
           <p className="max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
@@ -106,8 +106,8 @@ const SkillForm = ({ intent = "create", skill }: SkillFormProps) => {
         </div>
       </header>
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_16rem] lg:items-start">
-        <Card className="gap-0">
-          <CardHeader className="border-b border-border/70 pb-5">
+        <Card className="gap-0 rounded-xl shadow-none">
+          <CardHeader className="border-b border-border pb-5">
             <CardTitle className="text-lg">Skill details</CardTitle>
             <CardDescription>
               {isEditing
@@ -130,6 +130,7 @@ const SkillForm = ({ intent = "create", skill }: SkillFormProps) => {
                   required
                   aria-invalid={!!errors.title}
                   aria-describedby={errors.title ? "title-error" : undefined}
+                  className="mt-1 h-10 rounded-md border-border bg-white px-3"
                   {...register("title")}
                 />
                 {errors.title && (
@@ -151,7 +152,7 @@ const SkillForm = ({ intent = "create", skill }: SkillFormProps) => {
                 </Label>
                 <Textarea
                   id="description"
-                  className="min-h-20 resize-y"
+                  className="mt-1 min-h-20 resize-y rounded-md border-border bg-white px-3 py-2"
                   placeholder="What does this skill help you do?"
                   rows={2}
                   aria-invalid={!!errors.description}
@@ -177,7 +178,7 @@ const SkillForm = ({ intent = "create", skill }: SkillFormProps) => {
                 <Label htmlFor="content">Instructions</Label>
                 <Textarea
                   id="content"
-                  className="min-h-72 resize-y font-mono text-sm leading-6"
+                  className="mt-1 min-h-72 resize-y rounded-md border-border bg-white px-3 py-3 font-mono text-sm leading-6"
                   placeholder={`# How to use this skill\n\nDescribe the task, context, and approach the assistant should follow.\n\n## Guidelines\n- Be specific about the desired outcome\n- Include any constraints or preferences`}
                   required
                   rows={14}
@@ -198,7 +199,7 @@ const SkillForm = ({ intent = "create", skill }: SkillFormProps) => {
                 </p>
               </div>
 
-              <div className="flex flex-col-reverse gap-3 border-t border-border/70 pt-5 sm:flex-row sm:justify-between">
+              <div className="flex flex-col-reverse gap-3 border-t border-border pt-5 sm:flex-row sm:justify-between">
                 <Button
                   variant="outline"
                   nativeButton={false}
@@ -228,8 +229,8 @@ const SkillForm = ({ intent = "create", skill }: SkillFormProps) => {
           </CardContent>
         </Card>
 
-        <aside className="rounded-xl border border-border/70 bg-muted/30 p-5">
-          <h2 className="text-sm font-semibold">Tips for a useful skill</h2>
+        <aside className="rounded-lg border border-border bg-[#fafafa] p-5">
+          <h2 className="text-sm font-medium">Tips for a useful skill</h2>
           <ul className="mt-4 space-y-3 text-sm leading-5 text-muted-foreground">
             <li>Start with a clear goal or role.</li>
             <li>Describe the steps and context the assistant needs.</li>
@@ -237,7 +238,7 @@ const SkillForm = ({ intent = "create", skill }: SkillFormProps) => {
           </ul>
         </aside>
       </div>
-    </>
+    </div>
   );
 };
 
