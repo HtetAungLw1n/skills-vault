@@ -159,7 +159,7 @@ async function SkillDetailContent({ id }: { id: string }) {
             </CardContent>
           </Card>
 
-          <div className="rounded-lg border border-border bg-[#fafafa] p-5">
+          <div className="rounded-lg border border-border bg-muted p-5">
             <h2 className="text-sm font-medium">Make it yours</h2>
 
             <p className="mt-2 text-sm leading-6 text-muted-foreground">

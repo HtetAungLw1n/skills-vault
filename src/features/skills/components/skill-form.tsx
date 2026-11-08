@@ -229,7 +229,7 @@ const SkillForm = ({ intent = "create", skill }: SkillFormProps) => {
           </CardContent>
         </Card>
 
-        <aside className="rounded-lg border border-border bg-[#fafafa] p-5">
+        <aside className="rounded-lg border border-border bg-muted p-5">
           <h2 className="text-sm font-medium">Tips for a useful skill</h2>
           <ul className="mt-4 space-y-3 text-sm leading-5 text-muted-foreground">
             <li>Start with a clear goal or role.</li>

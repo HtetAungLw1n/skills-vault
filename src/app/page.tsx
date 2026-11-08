@@ -28,7 +28,7 @@ const previewSkills = [
 
 export default function Home() {
   return (
-    <div className="light min-h-full bg-background text-foreground">
+    <div className="min-h-full bg-background text-foreground">
       <header className="border-b border-border">
         <div className="mx-auto flex h-[68px] max-w-7xl items-center justify-between gap-6 px-5 sm:px-8">
           <Link href="/" className="flex items-center gap-2.5">
@@ -197,7 +197,7 @@ export default function Home() {
 
         <section
           id="how-it-works"
-          className="border-y border-border bg-[#fafafa]"
+          className="border-y border-border bg-muted"
         >
           <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
             <div>

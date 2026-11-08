@@ -34,9 +34,9 @@ export function SkillsList({ skills }: { skills: SkillCardData[] }) {
 
   if (skills.length === 0) {
     return (
-      <Empty className="rounded-xl border border-dashed border-border bg-[#fafafa] py-12">
+      <Empty className="rounded-xl border border-dashed border-border bg-muted py-12">
         <EmptyHeader>
-          <EmptyMedia variant="icon" className="rounded-md bg-white text-[#24b47e]">
+          <EmptyMedia variant="icon" className="rounded-md bg-background text-[#24b47e]">
             <SparkleIcon />
           </EmptyMedia>
           <EmptyTitle>No skills yet</EmptyTitle>
@@ -70,7 +70,7 @@ export function SkillsList({ skills }: { skills: SkillCardData[] }) {
       </InputGroup>
 
       {filtered.length === 0 ? (
-        <Empty className="rounded-xl border border-dashed border-border bg-[#fafafa] py-12">
+        <Empty className="rounded-xl border border-dashed border-border bg-muted py-12">
           <EmptyHeader>
             <EmptyTitle>No matching skills</EmptyTitle>
             <EmptyDescription>
