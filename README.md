@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Skills Vault
 
-## Getting Started
+Skills Vault is a personal library for saving and organizing reusable AI instructions. Create skills for workflows that work, find them later, and refine them as your needs change.
 
-First, run the development server:
+## Features
+
+- Sign up and sign in with Supabase Auth
+- Create, edit, view, and delete personal skills
+- Search your library by skill title and description
+- Keep each user's skills private to their account
+- Responsive interface with light and dark themes
+
+## Tech stack
+
+- [Next.js](https://nextjs.org/) App Router and React
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Supabase](https://supabase.com/) Auth
+- [PostgreSQL](https://www.postgresql.org/) with [Prisma](https://www.prisma.io/)
+
+## Getting started
+
+### Prerequisites
+
+- Node.js 20.9 or later
+- npm
+- A Supabase project with email authentication enabled
+- A PostgreSQL database
+
+### Install
+
+```bash
+git clone https://github.com/HtetAungLw1n/skills-vault.git
+cd skills-vault
+npm install
+```
+
+### Configure environment variables
+
+Copy `.env.example` to `.env.local` and fill in the values from your Supabase project and PostgreSQL provider:
+
+```bash
+cp .env.example .env.local
+```
+
+```dotenv
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+DATABASE_URL=
+DIRECT_URL=
+```
+
+`DATABASE_URL` is used by the app to connect to PostgreSQL. `DIRECT_URL` is used by Prisma for database migrations. When using a hosted database with connection poolers, use the transaction pooler URL for `DATABASE_URL` and the direct or session pooler URL for `DIRECT_URL`.
+
+In your Supabase project's authentication URL settings, add `http://localhost:3000/auth/confirm` as an allowed redirect URL for local development.
+
+### Set up the database
+
+Apply the Prisma migrations to your configured database:
+
+```bash
+npx prisma migrate dev
+```
+
+### Run the app
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). Create an account and follow the email confirmation link to start using your vault.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm run build` | Create a production build |
+| `npm run start` | Start the production server |
+| `npm run lint` | Run ESLint |
 
-## Learn More
+## Project structure
 
-To learn more about Next.js, take a look at the following resources:
+```text
+src/
+  app/          Next.js routes and layouts
+  components/   Shared UI components
+  features/
+    auth/       Authentication schemas
+    skills/     Skill forms, actions, and data access
+  lib/          Supabase, Prisma, and shared utilities
+prisma/
+  schema.prisma Database schema
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Issues and pull requests are welcome. For changes, please run `npm run lint` and `npm run build` before submitting a pull request.
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+No license has been specified yet.
